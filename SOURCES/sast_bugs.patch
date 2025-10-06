@@ -1,0 +1,28 @@
+diff --git a/sa.c b/sa.c
+index e2e654e..a432e5a 100644
+--- a/sa.c
++++ b/sa.c
+@@ -1042,9 +1042,11 @@ void write_savacct_file(char *filename)
+         {
+           printf ("%s (write_savacct_file): probs writing to file `%s'\n",
+                   program_name, s);
++          fclose(fp);
+           exit(EXIT_FAILURE);
+         }
+     }
++  fclose(fp);
+ 
+   if (rename (s, filename) != 0)
+     {
+@@ -1084,9 +1086,11 @@ void write_usracct_file(char *filename)
+         {
+           printf ("%s (write_usracct_file): probs writing to file `%s'\n",
+                   program_name, s);
++          fclose(fp);
+           exit(EXIT_FAILURE);
+         }
+     }
++  fclose(fp);
+ 
+   if (rename (s, filename) != 0)
+     {
