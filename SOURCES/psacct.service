@@ -7,6 +7,7 @@ ConditionPathExists=/var/account
 Type=oneshot
 ExecStartPre=/usr/libexec/psacct/accton-create
 ExecStart=/usr/sbin/accton /var/account/pacct
+ExecReload=/usr/sbin/accton /var/account/pacct
 ExecStop=/usr/sbin/accton off
 RemainAfterExit=yes
 

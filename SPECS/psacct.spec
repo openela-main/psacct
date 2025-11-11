@@ -4,7 +4,7 @@
 Summary: Utilities for monitoring process activities
 Name: psacct
 Version: 6.6.4
-Release: 24%{?dist}
+Release: 25%{?dist}
 License: GPL-3.0-or-later
 URL: http://www.gnu.org/software/acct/
 
@@ -125,6 +125,10 @@ touch /var/account/pacct && chmod 0600 /var/account/pacct
 
 
 %changelog
+* Mon Jul 28 2025 Jan Rybar <jrybar@redhat.com> - 6.6.4-25
+- post-rotate script aligned with systemd usage
+- Resolves: RHEL-62932
+
 * Tue Oct 29 2024 Troy Dawson <tdawson@redhat.com> - 6.6.4-24
 - Bump release for October 2024 mass rebuild:
   Resolves: RHEL-64018

@@ -9,7 +9,7 @@
     create 0600 root root
     postrotate
        if %{_bindir}/systemctl --quiet is-active psacct.service ; then
-           %{_sbindir}/accton /var/account/pacct | %{_bindir}/grep -v "Turning on process accounting, file set to '/var/account/pacct'." | %{_bindir}/cat
+       %{_bindir}/systemctl reload psacct.service
        fi
     endscript
 }
