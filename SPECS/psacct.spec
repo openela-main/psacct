@@ -4,7 +4,7 @@
 Summary: Utilities for monitoring process activities
 Name: psacct
 Version: 6.6.4
-Release: 12%{?dist}
+Release: 13%{?dist}
 License: GPLv3+
 URL: http://www.gnu.org/software/acct/
 
@@ -12,6 +12,7 @@ Source: ftp://ftp.gnu.org/pub/gnu/acct/acct-%{version}.tar.gz
 Source1: psacct.service
 Source2: psacct-logrotate.in
 Source3: accton-create
+Source4: psacct-tmpfiles.conf
 
 Patch1: psacct-6.6.2-unnumberedsubsubsec.patch
 Patch2: psacct-6.6.1-SEGV-when-record-incomplete.patch
@@ -90,6 +91,10 @@ install -m 755 %{SOURCE3} %{buildroot}%{_libexecdir}/psacct/
 rm -f %{buildroot}%{_bindir}/last %{buildroot}%{_mandir}/man1/last.1*
 %endif
 
+# tmpfiles.d configuration file for /var/account/pacct
+mkdir -p %{buildroot}%{_tmpfilesdir}
+install -m 0644 %{SOURCE4} %{buildroot}%{_tmpfilesdir}/psacct.conf
+
 
 %post
 %systemd_post psacct.service
@@ -130,9 +135,14 @@ touch /var/account/pacct && chmod 0600 /var/account/pacct
 %{_mandir}/man8/dump-acct.8*
 %{_mandir}/man8/dump-utmp.8*
 %{_infodir}/accounting.info.*
+%{_tmpfilesdir}/psacct.conf
 
 
 %changelog
+* Thu Sep 11 2025 Jan Rybar <jrybar@redhat.com> - 6.6.4-13
+- tmpfiles.d integration
+- Resolves: RHEL-109878
+
 * Thu Oct 28 2021 Jan Rybar <jrybar@redhat.com> - 6.6.4-12
 - post-rotate script aligned with systemd usage
 - Resolves: rhbz#2015020
